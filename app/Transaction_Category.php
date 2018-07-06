@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction_Category extends Model
 {
-    protected $table = 'transaction_categoty';
+    protected $table = 'transaction_category';
 
     public function action()
     {
