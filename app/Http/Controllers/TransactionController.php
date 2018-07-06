@@ -18,8 +18,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transiaction_category = Transiactioncategory::all();
-        $transiactions = Casa::all();
+        $transiaction_category = Transaction_Category::all();
+        $transiactions = Transaction::all();
         $payments = Payment::all();
         $actions = Action::all();
         return view('transaction', compact('transiactions', 'transiaction_category', 'payments', 'actions'));
