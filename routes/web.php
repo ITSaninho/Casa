@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'TransactionController@index');
+Route::post('/transiaction', 'transactionController@store')->name('transiaction_store');
+Route::post('/transiaction/{id}/rollback', 'transactionController@rollback')->name('transiaction_rollback')->where('id','[0-9]+');
