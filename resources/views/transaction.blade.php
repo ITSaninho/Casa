@@ -86,6 +86,7 @@
         </div>
     </div>
 
+    <!-- Transactions -->
     <div class="container">
         <div class="row">
             <h1 class="text-center">Тестове завдання</h1>
