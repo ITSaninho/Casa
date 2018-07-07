@@ -8,7 +8,7 @@ class Payment extends Model
 {
     protected $table = 'payment';
 
-    public function transiactionCategories() {
-        return $this->belongsToMany('App\Transiactioncategory', 'transiactioncategory_payment', 'payment_id', 'transiactioncategory_id');
+    public function transactionCategories() {
+        return $this->belongsToMany('App\Transaction_Сategory', 'transactioncategory_payment', 'payment_id', 'transiactioncategory_id');
     }
 }

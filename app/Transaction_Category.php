@@ -14,6 +14,6 @@ class Transaction_Category extends Model
     }
 
     public function payments() {
-        return $this->belongsToMany('App\Payment', 'transiactioncategory_payment', 'transiactioncategory_id', 'payment_id');
+        return $this->belongsToMany('App\Payment', 'transactioncategory_payment', 'transiactioncategory_id', 'payment_id');
     }
 }

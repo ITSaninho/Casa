@@ -13,4 +13,14 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Action');
     }
+
+    public function payment()
+    {
+        return $this->belongsTo('App\Payment', 'paymend_id');
+    }
+
+    public function transactionCategory()
+    {
+        return $this->belongsTo('App\Transaction_Category');
+    }
 }

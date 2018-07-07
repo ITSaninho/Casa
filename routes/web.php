@@ -12,5 +12,5 @@
 */
 
 Route::get('/', 'TransactionController@index');
-Route::post('/transiaction', 'transactionController@store')->name('transiaction_store');
-Route::post('/transiaction/{id}/rollback', 'transactionController@rollback')->name('transiaction_rollback')->where('id','[0-9]+');
+Route::post('/transaction', 'transactionController@store')->name('transaction_store');
+Route::post('/transaction/{id}/rollback', 'transactionController@rollback')->name('transaction_rollback')->where('id','[0-9]+');
