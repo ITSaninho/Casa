@@ -22,7 +22,7 @@ class TransactionController extends Controller
         $transactions = Transaction::orderBy('created_at', 'desc')->get();
         $payments = Payment::all();
         $actions = Action::all();
-        
+
         $nalichni_add = Transaction::where('paymend_id', 1)->where('action_id', 1)->sum('price');
         $nalichni_delete = Transaction::where('paymend_id', 1)->where('action_id', 2)->sum('price');
         $nalichni = $nalichni_add - $nalichni_delete;
@@ -51,7 +51,6 @@ class TransactionController extends Controller
         if($transiaction->save()){
             return redirect()->back()->with('status', 'Transaction was successful!');
         }
-        return redirect()->back()->with('status', 'Transaction was not successful!');
     }
 
     /**
@@ -62,7 +61,10 @@ class TransactionController extends Controller
      */
     public function rollback($id)
     {
-        //
+        $transaction = Transaction::find($id);
+        if ($transaction->delete()) {
+            return redirect()->back()->with('status', 'Transaction rollback was successful!');
+        }
     }
 
     /**

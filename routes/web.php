@@ -13,4 +13,8 @@
 
 Route::get('/', 'TransactionController@index');
 Route::post('/transaction', 'TransactionController@store')->name('transaction_store');
-Route::post('/transaction/{id}/rollback', 'TransactionController@rollback')->name('transaction_rollback')->where('id','[0-9]+');
+Route::get('/transaction/{id}/rollback', 'TransactionController@rollback')->name('transaction_rollback')->where('id','[0-9]+');
+
+Route::get('/{not_route}', function () {
+    return redirect('/');
+});

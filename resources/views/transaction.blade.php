@@ -130,7 +130,7 @@
                             @endif
                         @endif
                     </td>
-                    <td><button class="btn btn-danger">X</button></td>
+                    <td><a class="btn btn-danger" href="{{ route('transaction_rollback', [ 'id' => $transaction->id ]) }}">X</a></td>
                 </tr>
                 @endforeach
             </table>
