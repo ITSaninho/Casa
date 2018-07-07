@@ -19,10 +19,19 @@ class TransactionController extends Controller
     public function index()
     {
         $transaction_category = Transaction_Category::all();
-        $transactions = Transaction::all();
+        $transactions = Transaction::orderBy('created_at', 'desc')->get();
         $payments = Payment::all();
         $actions = Action::all();
-        return view('transaction', compact('transactions', 'transaction_category', 'payments', 'actions'));
+        
+        $nalichni_add = Transaction::where('paymend_id', 1)->where('action_id', 1)->sum('price');
+        $nalichni_delete = Transaction::where('paymend_id', 1)->where('action_id', 2)->sum('price');
+        $nalichni = $nalichni_add - $nalichni_delete;
+
+        $nenalicni_add = Transaction::where('paymend_id', 2)->where('action_id', 1)->sum('price');
+        $nenalicni_delete = Transaction::where('paymend_id', 2)->where('action_id', 2)->sum('price');
+        $nenalicni = $nenalicni_add - $nenalicni_delete;
+
+        return view('transaction', compact('transactions', 'transaction_category', 'payments', 'actions', 'nalichni', 'nenalicni'));
     }
 
     /**
@@ -33,7 +42,16 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $transiaction = new Transaction();
+        $transiaction->transaction_category_id = $request->transaction_category;
+        $transiaction->paymend_id = $request->payment;
+        $transiaction->action_id = $request->action;
+        $transiaction->price = $request->price;
+        $transiaction->save();
+        if($transiaction->save()){
+            return redirect()->back()->with('status', 'Transaction was successful!');
+        }
+        return redirect()->back()->with('status', 'Transaction was not successful!');
     }
 
     /**

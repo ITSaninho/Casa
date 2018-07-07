@@ -72,6 +72,10 @@
                             <input type="text" name="price" class="form-control">
                         </div>
 
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" value="Submit">
+                        </div>
+
                     </form>
 
                 </div>
@@ -88,15 +92,20 @@
             <div class="form-group">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Зробити транзакцію</button>
             </div>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <h2 class="text-center">Транзакції</h2>
             <table class="table table-striped">
                 <tr>
-                    <td>id</td>
-                    <td>Час</td>
-                    <td>Категорія</td>
-                    <td>Поповнили</td>
-                    <td>Витратили</td>
-                    <td>Відмінити</td>
+                    <td><b>id</b></td>
+                    <td><b>Час</b></td>
+                    <td><b>Категорія</b></td>
+                    <td><b>Поповнили</b></td>
+                    <td><b>Витратили</b></td>
+                    <td><b>Відмінити</b></td>
                 </tr>
                 @foreach($transactions as $transaction)
                 <tr>
@@ -105,22 +114,39 @@
                     <td>{{$transaction->transactionCategory->name}}</td>
                     <td>
                         @if($transaction->action['id'] == 1)
-                        <i class="fa fa-money"></i> {{$transaction->price}}
-                        @else
-                        -
+                            @if($transaction->paymend_id == 1)
+                            <i class="fa fa-money"></i> {{$transaction->price}}
+                            @elseif($transaction->paymend_id == 2)
+                            <i class="fa fa-credit-card"></i> {{$transaction->price}}
+                            @endif
                         @endif
                     </td>
                     <td>
                         @if($transaction->action['id'] == 2)
-                        <i class="fa fa-credit-card"></i> {{$transaction->price}}
-                        @else
-                        -
+                            @if($transaction->paymend_id == 1)
+                            <i class="fa fa-money"></i> {{$transaction->price}}
+                            @elseif($transaction->paymend_id == 2)
+                            <i class="fa fa-credit-card"></i> {{$transaction->price}}
+                            @endif
                         @endif
                     </td>
                     <td><button class="btn btn-danger">X</button></td>
                 </tr>
                 @endforeach
             </table>
+
+            <h2 class="text-center">Баланс</h2>
+            <table class="table table-striped">
+                <tr>
+                    <td><b>Готівковою</b></td>
+                    <td><b>Без готівки</b></td>
+                </tr>
+                <tr>
+                    <td><i class="fa fa-money"></i> {{$nalichni}}</td>
+                    <td><i class="fa fa-credit-card"></i> {{$nenalicni}}</td>
+                </tr>
+            </table>
+
         </div>
     </div>
 

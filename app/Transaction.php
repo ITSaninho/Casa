@@ -16,7 +16,7 @@ class Transaction extends Model
 
     public function payment()
     {
-        return $this->belongsTo('App\Payment', 'paymend_id');
+        return $this->belongsTo('App\Payment', 'id', 'paymend_id');
     }
 
     public function transactionCategory()
